@@ -5,10 +5,11 @@ This library provides methods to identify the relevant regulatory framework base
 - CCPA
 - LGPD
 
+<img  src="https://github.com/DewminaUdayashan/flutter_consent_flow/blob/main/screenshots/2.png?raw=true"  alt="FlutterConsentFlow"  width="300"/>
+
 We use [Nominatim API](https://nominatim.org/release-docs/latest/api/Overview/),  [ipgeolocation API](https://ipgeolocation.io) & [Geocoder](https://pub.dev/packages/flutter_geocoder) for detect these data.
 
 ## Getting Started 🚀
-
 Add `flutter_consent_flow:1.0.0 ` to your `pubspec.yaml` file.
 To use Flutter Consent Flow, you need to initialize the library first using the `initialize` method. This step is necessary before using other functionalities of the library.
 ```dart
