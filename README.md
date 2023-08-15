@@ -1,6 +1,6 @@
 
 # Flutter Consent Flow ⚒
-A Flutter utility library for handling regulatory frameworks and geolocation permissions. This library provides methods to identify the relevant regulatory framework based on the user's location and check geolocation permissions on the device.
+A Flutter utility library for handling regulatory frameworks and geolocation permissions. This library provides methods to identify the relevant regulatory framework based on the user's IP or location and show a consent dialog to request user consent.
 
 ## Getting Started 🚀
 
