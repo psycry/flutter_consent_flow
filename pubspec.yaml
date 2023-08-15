@@ -1,6 +1,6 @@
 name: flutter_consent_flow
 description: This library provides methods to identify the relevant regulatory framework based on the user's IP or location and request consent from the user.
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/DewminaUdayashan/flutter_consent_flow
 
 
