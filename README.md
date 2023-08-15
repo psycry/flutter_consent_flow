@@ -1,6 +1,6 @@
 
 # Flutter Consent Flow ⚒
-A Flutter utility library for handling regulatory frameworks and geolocation permissions. This library provides methods to identify the relevant regulatory framework based on the user's IP or location and show a consent dialog to request user consent.
+A Flutter utility library for handling regulatory frameworks and geolocation permissions. This library provides methods to identify the relevant regulatory framework based on the user's location and check geolocation permissions on the device.
 
 ## Getting Started 🚀
 
@@ -13,10 +13,10 @@ FlutterConsentFlow.initialize(
 	enableLogs:  true,  // Set to false to disable logs
 );
 ```
-- `httpReferer`: The HTTP referer to be used for API requests. You can use your website url or app's url for this.
-- `userAgent`: The user agent to be used for API requests. You can pass some unique indentifer for your app.
+- **`httpReferer`**: The HTTP referer to be used for API requests. You can use your website url or app's url for this. This is required only for the `getRegulatoryFrameworkByCoordinates` method.
+- **`userAgent`**: The user agent to be used for API requests. You can pass some unique indentifer for your app. This is required only for the `getRegulatoryFrameworkByCoordinates` method.
 
-## Regulatory Frameworks
+## Regulatory Frameworks 🗺️
 
 The `RegulatoryFramework` enum provides a way to represent different regulatory frameworks related to user data protection and privacy laws. This enum is used as a return type for methods that determine the applicable regulatory framework based on the user's location.
 
@@ -37,7 +37,7 @@ Flutter Consent Flow offers two methods to identify the regulatory framework app
 
 Example:
 ```dart
-RegulatoryFramework? framework = await FlutterConsentFlow.getRegulatoryFrameworkByIP(
+final RegulatoryFramework? framework = await FlutterConsentFlow.getRegulatoryFrameworkByIP(
   apiKey: 'Your IPGeolocation.io API Key',
 );
 ```
@@ -48,7 +48,7 @@ RegulatoryFramework? framework = await FlutterConsentFlow.getRegulatoryFramework
 **IMPORTANT**:  You must attribute & follow [Nominatim Usage Policy](https://operations.osmfoundation.org/policies/nominatim/) in order to use their free APIs.
 
 ```dart
-RegulatoryFramework? framework = await FlutterConsentFlow.getRegulatoryFrameworkByCoordinates();
+final RegulatoryFramework? framework = await FlutterConsentFlow.getRegulatoryFrameworkByCoordinates();
 ```
 
 **Note**: The accuracy and availability of the regulatory framework information may vary based on the chosen method.
@@ -66,13 +66,13 @@ final LocationPermission permission = await FlutterConsentFlow.checkPermissions(
 
 - `requestPermission`: Request geolocation permission from the user.
 ```dart
-LocationPermission permission = await FlutterConsentFlow.requestPermission();
+final LocationPermission permission = await FlutterConsentFlow.requestPermission();
 ```
 
-**Note**: To find the coordinates of the user, we use [Geolocator](https://pub.dev/packages/geolocator) plugin inside `FlutterConsentFlow` package. You'll have to do platform specific configurations if you want to go with `getRegulatoryFrameworkByCoordinates` method. Follow [Geolocator](https://pub.dev/packages/geolocator) documentation to continue. 
+**Note**: To find the coordinates of the user, we use [Geolocator](https://pub.dev/packages/geolocator) plugin inside `FlutterConsentFlow` package. You may have to do platform specific configurations if you want to go with `getRegulatoryFrameworkByCoordinates` method. Follow [Geolocator](https://pub.dev/packages/geolocator) documentation to continue. 
 
 
-## Showing the Consent Dialog
+## Showing the Consent Dialog 
 
 The `FlutterConsentFlow` package provides a built-in consent dialog that you can use to request user consent based on the detected regulatory framework. Before using this dialog, ensure that you have determined the applicable `RegulatoryFramework` using the package's methods.
 
@@ -82,15 +82,19 @@ To show the built-in consent dialog, follow these steps:
 
 1. Determine the applicable regulatory framework using the package's methods.
 2. Pass the result to the consent dialog as a parameter.
+3. You can customise all of the text by passing your custom strings to the dialog.
+4. `privacyPolicyLink` is required & make sure to pass a valid privacy policy link to your app.
 
 Here's an example of how to use the built-in consent dialog:
 
 ```dart
 // Determine the applicable regulatory framework (e.g., GDPR)
-RegulatoryFramework? framework = await FlutterConsentFlow.getRegulatoryFrameworkByIP(
+final RegulatoryFramework? framework = await FlutterConsentFlow.getRegulatoryFrameworkByIP(
   apiKey: 'Your IPGeolocation.io API Key',
 );
-
+//It is not essential to show consent dialog if user not within
+//the regulated country or state
+if(framework == RegulatoryFramework.notApplied) return;
 // Show the consent dialog
 final bool? userGrantedConsent = await showDialog<bool?>(
   context: context,
@@ -107,14 +111,14 @@ If you prefer, you can design and use a custom consent dialog by incorporating y
 
 To use a custom consent dialog, implement your own dialog and integrate it with the package's methods.
 
-**Note**: Regardless of using the built-in or custom consent dialog, ensure that you follow the relevant regulatory framework's guidelines and provide users with clear and accurate information regarding data usage and consent options.
+**Note**: Regardless of using the built-in or custom consent dialog, ensure that you follow the relevant regulatory framework's guidelines and provide users with clear and accurate information regarding data usage and consent options. This package will not save user consent, You can use `SharedPreferences` or `FlutterSecureStorage` to store user consent within app. 
   
-## Important Notices
+## Important Notices ‼️
 - This package does not constitute legal advice or a legal entity. Users are responsible for managing their own data and ensuring compliance with relevant regulations.
 - Flutter Consent Flow identifies geographical areas and relevant legal frameworks based on provided APIs. It does not guarantee accuracy or legal compliance.
 
-## Contribution and Issues
+## Contribution and Issues 🤝
 Please feel free to contribute to this project by submitting pull requests or reporting issues. Your feedback is valuable in improving the library for all users.
 
-## License
+## License 🪪
 This library is open-source and released under the [MIT License](https://opensource.org/license/mit/).
