@@ -63,26 +63,29 @@ class FlutterConsentDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const SizedBox(height: 4),
-            if (appIcon != null)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (appIcon != null) ...[
                   CircleAvatar(
                     radius: 24,
                     backgroundImage: appIcon,
                   ),
                   const SizedBox(width: 12),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        appName,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                ],
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      appName,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
                       ),
+                      textAlign: TextAlign.center,
+                    ),
+                    if (regulatoryFramework != RegulatoryFramework.notApplied)
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 4),
@@ -108,11 +111,11 @@ class FlutterConsentDialog extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
-            const SizedBox(height: 6),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
@@ -172,7 +175,7 @@ class FlutterConsentDialog extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 10),
             FilledButton(
               onPressed: () {
                 // Handle user accepting consent
