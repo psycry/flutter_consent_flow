@@ -3,13 +3,13 @@ class GlobalServices {
 
   GlobalServices._();
 
-  late String httpReferer;
-  late String userAgent;
+  String? httpReferer;
+  String? userAgent;
   bool enableLogs = true;
 
   void initialize({
-    required String httpReferer,
-    required String userAgent,
+    String? httpReferer,
+    String? userAgent,
     bool enableLogs = true,
   }) {
     this.httpReferer = httpReferer;

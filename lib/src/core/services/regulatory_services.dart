@@ -8,6 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
 import '../enums/enums.dart';
+import '../errors/exceptions.dart';
 
 void log(String log) {
   final enableLogs = GlobalServices.instance.enableLogs;
@@ -19,7 +20,6 @@ void log(String log) {
 class RegulatoryServices {
   static Future<RegulatoryFramework?> checkRegulatoryFrameworkByIP({
     required String apiKey,
-    VoidCallback? ifFailed,
     String? mockIP,
   }) async {
     log('Getting regulatory framework by user IP');
@@ -56,13 +56,14 @@ class RegulatoryServices {
       } else {
         log('Cannot fetch data from API');
         log('STATUS CODE : ${response.statusCode}, Error : ${response.body}');
-        ifFailed?.call();
+        throw Exception(
+            'Cannot fetch data from API. Status Code: ${response.statusCode} | Error: ${response.body} ');
       }
     } catch (e, s) {
       log('Cannot fetch data from API');
       log(e.toString());
       log(s.toString());
-      ifFailed?.call();
+      rethrow;
     }
 
     return null;
@@ -74,6 +75,11 @@ class RegulatoryServices {
   }) async {
     log('Getting regulatory framework by user coordinates');
 
+    if ((GlobalServices.instance.httpReferer?.isEmpty ?? true) ||
+        (GlobalServices.instance.userAgent?.isEmpty ?? true)) {
+      throw HttpHeadersMissing();
+    }
+
     final Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
@@ -83,12 +89,13 @@ class RegulatoryServices {
     try {
       address = await _getAddressByOpenstreetmap(
         position: position,
-        httpReferer: GlobalServices.instance.httpReferer,
-        userAgent: GlobalServices.instance.userAgent,
+        httpReferer: GlobalServices.instance.httpReferer!,
+        userAgent: GlobalServices.instance.userAgent!,
       );
     } catch (e, s) {
       log(e.toString());
       log(s.toString());
+      rethrow;
     }
 
     //// if the openstreetmap API fails, use geocoder API. (NOT RECOMMENDED BY GOOGLE)
@@ -141,7 +148,7 @@ class RegulatoryServices {
     final response = await http.get(
       Uri.parse(apiUrl),
       headers: {
-        'Referer': httpReferer, // Replace with your application's URL
+        'Referer': httpReferer,
         'User-Agent': userAgent,
       },
     );

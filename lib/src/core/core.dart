@@ -15,8 +15,8 @@ class FlutterConsentFlow {
   /// - [userAgent]: The user agent to be used for API requests.
   /// - [enableLogs]: Whether to enable logs for debugging (default is true).
   static void initialize({
-    required String httpReferer,
-    required String userAgent,
+    String? httpReferer,
+    String? userAgent,
     bool enableLogs = true,
   }) {
     GlobalServices.instance.initialize(
@@ -36,11 +36,9 @@ class FlutterConsentFlow {
   /// - [mockIP]: A mock IP address for testing purposes (optional).
   static Future<RegulatoryFramework?> getRegulatoryFrameworkByIP({
     required String apiKey,
-    VoidCallback? ifFailed,
     String? mockIP,
   }) async {
     return RegulatoryServices.checkRegulatoryFrameworkByIP(
-      ifFailed: ifFailed,
       apiKey: apiKey,
       mockIP: mockIP,
     );
