@@ -1,6 +1,11 @@
 
 # Flutter Consent Flow ⚒
-A Flutter utility library for handling regulatory frameworks and geolocation permissions. This library provides methods to identify the relevant regulatory framework based on the user's location and check geolocation permissions on the device.
+This library provides methods to identify the relevant regulatory framework based on the user's IP or location and request consent from the user. It can detect users who fall into the following categories:
+- GDPR
+- CCPA
+- LGPD
+
+We use [Nominatim API](https://nominatim.org/release-docs/latest/api/Overview/),  [ipgeolocation API](https://ipgeolocation.io) & [Geocoder](https://pub.dev/packages/flutter_geocoder) for detect these data.
 
 ## Getting Started 🚀
 
