@@ -2,6 +2,8 @@ name: flutter_consent_flow
 description: A Flutter utility library for handling regulatory frameworks and geolocation permissions. This library provides methods to identify the relevant regulatory framework based on the user's IP or location and show a consent dialog to request user consent.
 version: 1.0.0
 homepage: https://github.com/DewminaUdayashan/flutter_consent_flow
+publish_to: https://pub.dev
+
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
@@ -13,7 +15,6 @@ dependencies:
   geocoding: ^2.1.0
   geolocator: ^9.0.2
   http: ^1.1.0
-  shared_preferences: ^2.2.0
   url_launcher: ^6.1.12
 
 dev_dependencies:
