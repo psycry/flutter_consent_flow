@@ -127,4 +127,4 @@ To use a custom consent dialog, implement your own dialog and integrate it with 
 Please feel free to contribute to this project by submitting pull requests or reporting issues. Your feedback is valuable in improving the library for all users.
 
 ## License 🪪
-This library is open-source and released under the [MIT License](https://opensource.org/license/mit/).
+This library is open-source and released under the [MIT License](https://github.com/DewminaUdayashan/flutter_consent_flow/blob/main/LICENSE).
