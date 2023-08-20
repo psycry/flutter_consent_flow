@@ -1,6 +1,6 @@
 # Changelog
 
-# [1.0.3] - 2023-08-20
+# [1.0.4] - 2023-08-20
 - Consent dialog title overflowing fixed.
 # [1.0.3] - 2023-08-16
 - Update documentation
