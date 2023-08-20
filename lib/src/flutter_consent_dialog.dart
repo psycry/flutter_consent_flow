@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_consent_flow/flutter_consent_flow.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../flutter_consent_flow.dart';
 
 class FlutterConsentDialog extends StatelessWidget {
   const FlutterConsentDialog({
@@ -74,44 +75,51 @@ class FlutterConsentDialog extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                 ],
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      appName,
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    if (regulatoryFramework != RegulatoryFramework.notApplied)
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(100),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        appName,
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
                         ),
-                        child: Row(
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      if (regulatoryFramework != RegulatoryFramework.notApplied)
+                        Row(
                           children: [
-                            const Icon(
-                              Icons.check,
-                              color: Colors.white,
-                              size: 12,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              _getComplianceIndicator(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.check,
+                                    color: Colors.white,
+                                    size: 12,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    _getComplianceIndicator(),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
